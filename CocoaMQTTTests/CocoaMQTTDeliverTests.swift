@@ -154,26 +154,26 @@ class CocoaMQTTDeliverTests: XCTestCase {
         }
         
         var saved = storage.readAll()
-        XCTAssertEqual(saved.count, 2)
-        
+        XCTAssertEqual(saved?.count, 2)
+
         
         deliver.ack(by: FramePubAck(msgid: 1))
         ms_sleep(100)
         saved = storage.readAll()
-        XCTAssertEqual(saved.count, 1)
-        
+        XCTAssertEqual(saved?.count, 1)
+
         deliver.ack(by: FramePubRec(msgid: 2))
         ms_sleep(100)
         saved = storage.readAll()
-        XCTAssertEqual(saved.count, 1)
-        assertEqual(saved[0], FramePubRel(msgid: 2))
-        
+        XCTAssertEqual(saved?.count, 1)
+        assertEqual(saved?[0], FramePubRel(msgid: 2))
+
         
         deliver.ack(by: FramePubComp(msgid: 2))
         ms_sleep(100)
         saved = storage.readAll()
-        XCTAssertEqual(saved.count, 0)
-        
+        XCTAssertEqual(saved?.count, 0)
+
         caller.reset()
         _ = storage.write(frames[1])
         deliver.recoverSessionBy(storage)
@@ -184,7 +184,7 @@ class CocoaMQTTDeliverTests: XCTestCase {
         
         deliver.ack(by: FramePubAck(msgid: 1))
         ms_sleep(100)
-        XCTAssertEqual(storage.readAll().count, 0)
+        XCTAssertEqual(storage.readAll()?.count, 0)
     }
     
     func testTODO() {
@@ -193,7 +193,7 @@ class CocoaMQTTDeliverTests: XCTestCase {
     
     
     // Helper for assert equality for Frame
-    private func assertEqual(_ f1: Frame, _ f2: Frame, _ lines: Int = #line) {
+    private func assertEqual(_ f1: Frame?, _ f2: Frame?, _ lines: Int = #line) {
         if let pub1 = f1 as? FramePublish,
             let pub2 = f2 as? FramePublish {
             XCTAssertEqual(pub1.topic, pub2.topic)

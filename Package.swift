@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.7
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -8,15 +8,15 @@ let package = Package(
     platforms: [
         .macOS(.v10_13),
         .iOS(.v12),
-        .tvOS(.v10)
+        .tvOS(.v12)
     ],
     products: [
         .library(name: "CocoaMQTT", targets: [ "CocoaMQTT" ]),
         .library(name: "CocoaMQTTWebSocket", targets: [ "CocoaMQTTWebSocket" ])
     ],
     dependencies: [
-        .package(url: "https://github.com/daltoniam/Starscream.git", .exact("4.0.8")),
-        .package(url: "https://github.com/leeway1208/MqttCocoaAsyncSocket", from: "1.0.8"),
+        .package(url: "https://github.com/daltoniam/Starscream.git", revision: "4.0.8"),
+        .package(url: "https://github.com/sungjin-woo/MqttCocoaAsyncSocket", branch: "fix/exception_handling_on_disconnect")
     ],
     targets: [
         .target(name: "CocoaMQTT",

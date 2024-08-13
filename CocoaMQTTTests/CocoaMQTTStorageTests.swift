@@ -49,7 +49,7 @@ class CocoaMQTTStorageTests: XCTestCase {
             assertEqual(should[i], taken?[i])
         }
         
-        XCTAssertEqual(storage?.readAll().count, 0)
+        XCTAssertEqual(storage?.readAll()?.count, 0)
     }
     
     private func assertEqual(_ f1: Frame?, _ f2: Frame?) {
